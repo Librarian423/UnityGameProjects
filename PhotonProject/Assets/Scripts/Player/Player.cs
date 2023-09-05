@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
         Idle,
         Moving,
         Rolling,
+        Attacking,
     }
 
     public PlayerState state;
@@ -16,14 +17,16 @@ public class Player : MonoBehaviour
     //Animation
     private Animator animator;
     private int hashIsMoving = Animator.StringToHash("IsMoving");
+    private int hashIsNormalAttack = Animator.StringToHash("IsNormalAttack");
     private int hashRollingTrigger = Animator.StringToHash("RollingTrigger");
 
     //Colliders
-    [SerializeField] private CapsuleCollider mainCollider;
-    [SerializeField] private CapsuleCollider hitCollider;
+    [SerializeField] private Collider mainCollider;
+    [SerializeField] private Collider hitCollider;
 
     //States
     public bool IsMovable = true;
+    public bool IsRollable = true;
 
 
     [Header("Stats")]
@@ -53,9 +56,12 @@ public class Player : MonoBehaviour
                 IsMovable = false;
                 //moveSpeed = 0f;
                 break;
+            case PlayerState.Attacking:
+                break;
         }
     }
 
+    //Moving
     public void PlayerMoving(bool isMoving)
     {
         
@@ -74,7 +80,9 @@ public class Player : MonoBehaviour
         }
         
     }
-
+    ///////////////////////////
+    
+    //Rolling
     public void PlayerRolling()
     {
         if (state == PlayerState.Rolling)
@@ -86,15 +94,39 @@ public class Player : MonoBehaviour
         hitCollider.enabled = false;
     }
 
-    public void PlayerIdle()
-    {
-        state = PlayerState.Idle;
-    }
-
-    public void EndRolling()
+    private void EndRolling()
     {
         moveSpeed = originMoveSpeed;
         PlayerIdle();
         hitCollider.enabled = true;
     }
+    ///////////////////////////
+
+    //Idle
+    private void PlayerIdle()
+    {
+        state = PlayerState.Idle;
+    }
+    ///////////////////////////
+
+    //Attack
+    public void Attack()
+    {
+        state = PlayerState.Attacking;
+    }
+
+    public void NormalAttack()
+    {
+
+        animator.SetBool(hashIsNormalAttack, true);
+    }
+
+    public void EndAttack()
+    {
+        animator.SetBool(hashIsNormalAttack, false);
+        PlayerIdle();
+    }
+    ///////////////////////////
+    
+
 }
