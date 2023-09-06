@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
             {
                 hp = MaxHp;
             }
-            else if (hp < 0)
+            else if (hp <= 0)
             {
                 hp = 0;
             }
@@ -205,7 +205,7 @@ public class Player : MonoBehaviour
         } 
     }
 
-    protected void Attack()
+    protected virtual void Attack()
     {
         target.EnemyGetDamage(Atk);
     }
@@ -213,14 +213,14 @@ public class Player : MonoBehaviour
     public void PlayerGetDamage(float damage)
     {
         //damage calcultaion
-        float totalDamage = damage + Def;
+        float totalDamage = damage - Def;
 
         if (totalDamage < 0)
         {
             totalDamage = 0f;
         }
         //give damage
-        Hp = totalDamage;
+        Hp = -totalDamage;
     }
 
     protected virtual void PassiveSkill() { }

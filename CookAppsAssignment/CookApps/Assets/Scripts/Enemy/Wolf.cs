@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static OldMan;
 
 public class Wolf : Enemy
 {
@@ -15,16 +16,22 @@ public class Wolf : Enemy
 
     public EnemyState state;
 
+    //timer
+    private float timer;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         state = EnemyState.Idle;
+        timer = AttackSpeed;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
+        timer += Time.deltaTime;
+
         //Set Target
         if (target == null || !target.gameObject.activeSelf)
         {
@@ -40,30 +47,27 @@ public class Wolf : Enemy
                 {
                     SetMoving();
                 }
-
                 break;
             case EnemyState.Moving:
-
                 if (AttackRange < Vector3.Distance(transform.position, target.transform.position))
                 {
                     Vector3 direction = (target.transform.position - transform.position).normalized;
                     //Move
                     rigidbody.velocity = direction * MoveSpeed;
 
-                    //rotation
-                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+					//rotation
+					float angle;
+					if (transform.position.x > target.transform.position.x)
+					{
+						angle = 0f;
+					}
+					else
+					{
+						angle = 180f;
+					}
 
-                    if (angle > 90f && angle < 270f)
-                    {
-                        angle = 180f;
-                    }
-                    else
-                    {
-                        angle = 0f;
-                    }
-
-                    transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-                }
+					transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+				}
                 else
                 {
                     rigidbody.velocity = Vector3.zero;
@@ -72,14 +76,19 @@ public class Wolf : Enemy
                 }
                 break;
             case EnemyState.Attack:
-                if (true)
-                {
-
-                }
-                break;
+				if (timer >= AttackSpeed)
+				{
+					animator.SetBool(hashIsAttacking, true);
+				}
+				if (AttackRange < Vector3.Distance(transform.position, target.transform.position))
+				{
+					SetIdle();
+				}
+				break;
             case EnemyState.Stun:
                 break;
             case EnemyState.Die:
+                animator.SetTrigger(hashDeathTrigger);
                 break;
         }
     }
@@ -100,18 +109,23 @@ public class Wolf : Enemy
     public void SetAttack()
     {
         state = EnemyState.Attack;
-        animator.SetBool(hashIsAttacking, true);
+        animator.SetBool(hashIsMoving, false);
     }
 
-    public void SetDeath()
+	protected override void Attack()
+	{
+		base.Attack();
+		timer = 0f;
+		animator.SetBool(hashIsAttacking, false);
+	}
+
+	public void SetDeath()
     {
         state = EnemyState.Die;
-        Debug.Log("death");
     }
 
     public override void Die()
     {
-        base.Die();
         SetDeath();
     }
 }

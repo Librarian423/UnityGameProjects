@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class OldMan : Player
 {
@@ -15,17 +16,23 @@ public class OldMan : Player
 
     public PlayerState state;
 
+    //timer
+    private float timer;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         base.InitStats();
         state = PlayerState.Idle;
+        timer = AttackSpeed;
     }
 
     // Update is called once per frame
     protected override void Update()
     {
+        timer += Time.deltaTime;
+
         //Set Target
         if (target == null || !target.gameObject.activeSelf)
         {
@@ -40,11 +47,9 @@ public class OldMan : Player
                 if (BattleManager.instance.GetIsEnemyAlive())
                 {
                     SetMoving();
-                }
-                
+                }                
                 break;
             case PlayerState.Moving:
-
                 if (AttackRange < Vector3.Distance(transform.position, target.transform.position)) 
                 {                   
                     Vector3 direction = (target.transform.position - transform.position).normalized;
@@ -52,9 +57,8 @@ public class OldMan : Player
                     rigidbody.velocity = direction * MoveSpeed;
 
                     //rotation
-                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-                    if (angle > 90f && angle < 270f)
+                    float angle;
+                    if (transform.position.x > target.transform.position.x)
                     {
                         angle = 180f;
                     }
@@ -73,11 +77,15 @@ public class OldMan : Player
                 }
                 break;
             case PlayerState.Attack:
-                if (true)
+                if (timer >= AttackSpeed)
                 {
-
+					animator.SetBool(hashIsAttacking, true);
+				}
+				if (AttackRange < Vector3.Distance(transform.position, target.transform.position))
+                {
+                    SetIdle();
                 }
-                break;
+					break;
             case PlayerState.Stun:
                 break;
             case PlayerState.Die:            
@@ -101,6 +109,13 @@ public class OldMan : Player
     public void SetAttack()
     {
         state = PlayerState.Attack;
-        animator.SetBool(hashIsAttacking, true);
-    }
+		animator.SetBool(hashIsMoving, false);
+	}
+
+    protected override void Attack()
+    {
+        base.Attack();
+        timer = 0f;
+		animator.SetBool(hashIsAttacking, false);
+	}
 }

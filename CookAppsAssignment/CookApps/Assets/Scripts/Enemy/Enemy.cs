@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     //Animation
     protected int hashIsMoving = Animator.StringToHash("IsMoving");
     protected int hashIsAttacking = Animator.StringToHash("IsAttacking");
-    //protected int hashRollingTrigger = Animator.StringToHash("RollingTrigger");
+    protected int hashDeathTrigger = Animator.StringToHash("DeathTrigger");
 
     [SerializeField] protected Stats stats;
     public Player target;
@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
             {
                 hp = MaxHp;
             }
-            else if (hp < 0)
+            else if (hp <= 0)
             {
                 hp = 0;
                 Die();
@@ -207,8 +207,12 @@ public class Enemy : MonoBehaviour
 
         }
     }
+	protected virtual void Attack()
+	{
+		target.PlayerGetDamage(Atk);
+	}
 
-    public void EnemyGetDamage(float damage)
+	public void EnemyGetDamage(float damage)
     {
         //damage calcultaion
         float totalDamage = damage - Def;
@@ -221,7 +225,9 @@ public class Enemy : MonoBehaviour
         Hp = -totalDamage;
     }
 
-    public virtual void Die()
+    public virtual void Die() { }
+
+    public void UnenableEnemy()
     {
         gameObject.SetActive(false);
     }
