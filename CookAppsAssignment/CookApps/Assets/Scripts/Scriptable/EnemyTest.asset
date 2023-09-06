@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40e9ab6ce15634591be2d0b5441d60a7, type: 3}
-  m_Name: OldMan
+  m_Name: EnemyTest
   m_EditorClassIdentifier: 
   hp: 100
-  atk: 10
-  def: 3
+  atk: 1
+  def: 0
   attackRange: 1
-  moveSpeed: 1
+  moveSpeed: 0.7
   attackSpeed: 1

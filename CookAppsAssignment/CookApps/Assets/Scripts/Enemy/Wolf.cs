@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OldMan : Player
+public class Wolf : Enemy
 {
-    public enum PlayerState
+    public enum EnemyState
     {
         Idle,
         Moving,
@@ -13,14 +13,13 @@ public class OldMan : Player
         Die,
     }
 
-    public PlayerState state;
+    public EnemyState state;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        base.InitStats();
-        state = PlayerState.Idle;
+        state = EnemyState.Idle;
     }
 
     // Update is called once per frame
@@ -35,18 +34,18 @@ public class OldMan : Player
 
         switch (state)
         {
-            case PlayerState.Idle:
+            case EnemyState.Idle:
                 //if battle start change//               
-                if (BattleManager.instance.GetIsEnemyAlive())
+                if (BattleManager.instance.GetIsPlayerAlive())
                 {
                     SetMoving();
                 }
-                
-                break;
-            case PlayerState.Moving:
 
-                if (AttackRange < Vector3.Distance(transform.position, target.transform.position)) 
-                {                   
+                break;
+            case EnemyState.Moving:
+
+                if (AttackRange < Vector3.Distance(transform.position, target.transform.position))
+                {
                     Vector3 direction = (target.transform.position - transform.position).normalized;
                     //Move
                     rigidbody.velocity = direction * MoveSpeed;
@@ -63,7 +62,7 @@ public class OldMan : Player
                         angle = 0f;
                     }
 
-                    transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));  
+                    transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
                 }
                 else
                 {
@@ -72,35 +71,47 @@ public class OldMan : Player
                     break;
                 }
                 break;
-            case PlayerState.Attack:
+            case EnemyState.Attack:
                 if (true)
                 {
 
                 }
                 break;
-            case PlayerState.Stun:
+            case EnemyState.Stun:
                 break;
-            case PlayerState.Die:            
+            case EnemyState.Die:
                 break;
         }
     }
 
     public void SetIdle()
     {
-        state = PlayerState.Idle;
+        state = EnemyState.Idle;
         animator.SetBool(hashIsMoving, false);
         animator.SetBool(hashIsAttacking, false);
     }
 
     public void SetMoving()
     {
-        state = PlayerState.Moving;
+        state = EnemyState.Moving;
         animator.SetBool(hashIsMoving, true);
     }
 
     public void SetAttack()
     {
-        state = PlayerState.Attack;
+        state = EnemyState.Attack;
         animator.SetBool(hashIsAttacking, true);
+    }
+
+    public void SetDeath()
+    {
+        state = EnemyState.Die;
+        Debug.Log("death");
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        SetDeath();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     //Components
     protected Animator animator;
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     //protected int hashRollingTrigger = Animator.StringToHash("RollingTrigger");
 
     [SerializeField] protected Stats stats;
-    public Enemy target;
+    public Player target;
 
     //Max Stats Property
     [Header("Max Stats")]
@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
             else if (hp < 0)
             {
                 hp = 0;
+                Die();
             }
         }
     }
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour
         get => atk;
         set
         {
-            atk += value;            
+            atk += value;
         }
     }
 
@@ -157,6 +158,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody2D>();
+
+        InitStats();   
     }
 
     // Update is called once per frame
@@ -187,40 +190,40 @@ public class Player : MonoBehaviour
     {
         float shortestDistance = Mathf.Infinity;
 
-        //search closest enemy
-        foreach (var enemy in BattleManager.instance.enemies)
+        //search closest player
+        foreach (var player in BattleManager.instance.players)
         {
-            if (!enemy.gameObject.activeSelf)
+            if (!player.gameObject.activeSelf)
             {
                 continue;
             }
-            
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance < shortestDistance) 
+
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            if (distance < shortestDistance)
             {
                 shortestDistance = distance;
-                target = enemy;
+                target = player;
             }
 
-        } 
+        }
     }
 
-    protected void Attack()
-    {
-        target.EnemyGetDamage(Atk);
-    }
-
-    public void PlayerGetDamage(float damage)
+    public void EnemyGetDamage(float damage)
     {
         //damage calcultaion
-        float totalDamage = damage + Def;
+        float totalDamage = damage - Def;
 
         if (totalDamage < 0)
         {
             totalDamage = 0f;
         }
         //give damage
-        Hp = totalDamage;
+        Hp = -totalDamage;
+    }
+
+    public virtual void Die()
+    {
+        gameObject.SetActive(false);
     }
 
     protected virtual void PassiveSkill() { }
