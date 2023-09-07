@@ -5,6 +5,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Stats", menuName = "Scriptable/Stats")]
 public class Stats : ScriptableObject
 {
+    public enum Position
+    {
+        Front,
+        Middle,
+        Back,
+    }
+
+    public Position position;
     public float hp;
     public float atk;
     public float def;

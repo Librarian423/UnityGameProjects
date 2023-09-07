@@ -8,6 +8,10 @@ public class BattleManager : MonoBehaviour
     public List<Character> players = new List<Character>();
     public List<Character> enemies = new List<Character>();
 
+    private Vector3 playerPivot = new Vector3(-4, 0, 0);
+    private Vector3 enemyPivot = new Vector3(4, 0, 0);
+    
+
     private static BattleManager m_instance;
     public static BattleManager instance
     {
@@ -44,7 +48,50 @@ public class BattleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        IsListEmpty();
+        //IsListEmpty();
+    }
+
+    public void InsertPlayerFront(List<Character> characters)
+    {
+        float yAxisPivot = 0f;
+        bool isTwo = false;
+        switch (characters.Count)
+        {
+            case 1:
+                yAxisPivot = 0f;
+                break;
+            case 2:
+                yAxisPivot = 1f;
+                isTwo = true;
+                break;
+            case 3:
+                yAxisPivot = 2f;
+                break;
+        }
+        foreach (var player in characters)
+        {
+            players.Add(player);
+        }
+        SetPositions(characters, isTwo, -4f, yAxisPivot);
+    }
+
+    private void SetPositions(List<Character> characters, bool isTwo, float xPivot, float yPivot)
+    {
+        float temp = yPivot;
+        
+        foreach (var cha in characters)
+        {
+            cha.transform.position = new Vector3(xPivot, temp, 0f);
+            if (isTwo)
+            {
+                temp *= -1;
+            }
+            else
+            {
+                temp -= yPivot;
+            }
+            
+        }
     }
 
     private bool IsListEmpty()

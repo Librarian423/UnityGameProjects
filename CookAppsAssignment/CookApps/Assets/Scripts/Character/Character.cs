@@ -12,11 +12,10 @@ public class Character : MonoBehaviour
         Player,
         Enemy,
     }
-    [Header("State")]
+    [Header("Side")]
     public Side side;
 
     //state
-    
     public enum State
     {
         Idle,
@@ -28,6 +27,10 @@ public class Character : MonoBehaviour
 
     [Header("State")]
     public State state;
+
+    //Position
+    [Header("Position")]
+    [SerializeField] private Stats.Position position;
 
     //timer
     private float timer;
@@ -280,6 +283,8 @@ public class Character : MonoBehaviour
 
         MaxattackSpeed = stats.attackSpeed;
         AttackSpeed = MaxattackSpeed;
+
+        position = stats.position;
     }
 
     public void SetTarget()
@@ -374,6 +379,11 @@ public class Character : MonoBehaviour
     {
         gameObject.SetActive(false);
         BattleManager.instance.RemoveFromList(gameObject, side);
+    }
+
+    public Stats.Position GetPosition()
+    {
+        return position;
     }
 
     protected virtual void PassiveSkill() { }
