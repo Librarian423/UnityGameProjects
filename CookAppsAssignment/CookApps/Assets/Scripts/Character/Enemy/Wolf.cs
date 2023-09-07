@@ -9,9 +9,6 @@ public class Wolf : Character
     protected override void Start()
     {
         base.Start();
-
-        Debug.Log(side);
-		
 	}
 
     // Update is called once per frame
@@ -24,7 +21,6 @@ public class Wolf : Character
     {
 		if (side == Side.Enemy)
 		{
-			Debug.Log("Flip");
 			sprite.flipX = true;
 		}
 	}

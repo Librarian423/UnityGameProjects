@@ -171,7 +171,7 @@ public class BattleManager : MonoBehaviour
         return false;
     }
 
-    private void SetCharactersSide()
+    public void SetCharactersSide()
     {
         foreach (var player in players)
         {
