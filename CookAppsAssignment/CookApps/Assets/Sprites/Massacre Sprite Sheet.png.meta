@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,11 +64,12 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -589,41 +591,40 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Massacre Sprite Sheet_27: 1934332155
       Massacre Sprite Sheet_0: -1597811106
-      Massacre Sprite Sheet_26: 1452940002
-      Massacre Sprite Sheet_13: -1893152036
-      Massacre Sprite Sheet_15: -626754874
-      Massacre Sprite Sheet_2: -1964007769
-      Massacre Sprite Sheet_31: -1981705057
-      Massacre Sprite Sheet_16: 1275551546
-      Massacre Sprite Sheet_8: 497153256
-      Massacre Sprite Sheet_30: -735193086
-      Massacre Sprite Sheet_3: -886498497
-      Massacre Sprite Sheet_23: 1326167478
-      Massacre Sprite Sheet_5: -2015256544
-      Massacre Sprite Sheet_7: -1657421051
-      Massacre Sprite Sheet_9: 1237088321
-      Massacre Sprite Sheet_29: -394594359
-      Massacre Sprite Sheet_10: 1639649069
-      Massacre Sprite Sheet_22: -592392526
       Massacre Sprite Sheet_1: 187913191
-      Massacre Sprite Sheet_6: 1485726143
-      Massacre Sprite Sheet_19: -1173474274
+      Massacre Sprite Sheet_10: 1639649069
       Massacre Sprite Sheet_11: 1855015535
-      Massacre Sprite Sheet_21: -1220463214
-      Massacre Sprite Sheet_18: -652006351
-      Massacre Sprite Sheet_17: -650969794
-      Massacre Sprite Sheet_4: -1116675295
       Massacre Sprite Sheet_12: -1582426379
+      Massacre Sprite Sheet_13: -1893152036
       Massacre Sprite Sheet_14: -2117674477
-      Massacre Sprite Sheet_24: -839729108
-      Massacre Sprite Sheet_28: 131372284
-      Massacre Sprite Sheet_25: -1961863155
+      Massacre Sprite Sheet_15: -626754874
+      Massacre Sprite Sheet_16: 1275551546
+      Massacre Sprite Sheet_17: -650969794
+      Massacre Sprite Sheet_18: -652006351
+      Massacre Sprite Sheet_19: -1173474274
+      Massacre Sprite Sheet_2: -1964007769
       Massacre Sprite Sheet_20: -1050578220
-  spritePackingTag: 
+      Massacre Sprite Sheet_21: -1220463214
+      Massacre Sprite Sheet_22: -592392526
+      Massacre Sprite Sheet_23: 1326167478
+      Massacre Sprite Sheet_24: -839729108
+      Massacre Sprite Sheet_25: -1961863155
+      Massacre Sprite Sheet_26: 1452940002
+      Massacre Sprite Sheet_27: 1934332155
+      Massacre Sprite Sheet_28: 131372284
+      Massacre Sprite Sheet_29: -394594359
+      Massacre Sprite Sheet_3: -886498497
+      Massacre Sprite Sheet_30: -735193086
+      Massacre Sprite Sheet_31: -1981705057
+      Massacre Sprite Sheet_4: -1116675295
+      Massacre Sprite Sheet_5: -2015256544
+      Massacre Sprite Sheet_6: 1485726143
+      Massacre Sprite Sheet_7: -1657421051
+      Massacre Sprite Sheet_8: 497153256
+      Massacre Sprite Sheet_9: 1237088321
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
