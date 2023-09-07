@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    public enum Line
+    {
+        Front,
+        Mid,
+        Back,
+
+    }
+
     public List<Character> players = new List<Character>();
     public List<Character> enemies = new List<Character>();
 
@@ -51,10 +59,14 @@ public class BattleManager : MonoBehaviour
         //IsListEmpty();
     }
 
-    public void InsertPlayerFront(List<Character> characters)
+    public void InsertPlayer(List<Character> characters, Line line)
     {
         float yAxisPivot = 0f;
         bool isTwo = false;
+        if (characters.Count <= 0)
+        {
+            return;
+        }
         switch (characters.Count)
         {
             case 1:
@@ -68,11 +80,24 @@ public class BattleManager : MonoBehaviour
                 yAxisPivot = 2f;
                 break;
         }
+
+        switch (line)
+        {
+            case Line.Front:
+                SetPositions(characters, isTwo, -4f, yAxisPivot);
+                break;
+            case Line.Mid:
+                SetPositions(characters, isTwo, -6f, yAxisPivot);
+                break;
+            case Line.Back:
+                SetPositions(characters, isTwo, -8f, yAxisPivot);
+                break;
+        }
+
         foreach (var player in characters)
         {
             players.Add(player);
         }
-        SetPositions(characters, isTwo, -4f, yAxisPivot);
     }
 
     private void SetPositions(List<Character> characters, bool isTwo, float xPivot, float yPivot)
@@ -89,8 +114,7 @@ public class BattleManager : MonoBehaviour
             else
             {
                 temp -= yPivot;
-            }
-            
+            }  
         }
     }
 

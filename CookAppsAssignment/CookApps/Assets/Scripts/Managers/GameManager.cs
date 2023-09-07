@@ -38,7 +38,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        BattleManager.instance.InsertPlayerFront(playerLine1);
+        BattleManager.instance.InsertPlayer(playerLine1, BattleManager.Line.Front);
+        BattleManager.instance.InsertPlayer(playerLine2, BattleManager.Line.Mid);
+        BattleManager.instance.InsertPlayer(playerLine3, BattleManager.Line.Back);
     }
 
     // Update is called once per frame

@@ -213,6 +213,7 @@ public class Character : MonoBehaviour
         switch (state)
         {
             case State.Idle:
+                rigidbody.velocity = Vector3.zero;
                 //if battle start change//
                 if (side == Side.Player)
                 {
