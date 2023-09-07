@@ -9,7 +9,10 @@ public class Wolf : Character
     protected override void Start()
     {
         base.Start();
-    }
+
+        Debug.Log(side);
+		
+	}
 
     // Update is called once per frame
     protected override void Update()
@@ -17,4 +20,12 @@ public class Wolf : Character
         base.Update();
     }
 
+    public override void InitRotation()
+    {
+		if (side == Side.Enemy)
+		{
+			Debug.Log("Flip");
+			sprite.flipX = true;
+		}
+	}
 }

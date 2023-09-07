@@ -8,7 +8,11 @@ public class GameManager : MonoBehaviour
     public List<Character> playerLine2 = new List<Character>();
     public List<Character> playerLine3 = new List<Character>();
 
-    private static GameManager m_instance;
+	public List<Character> enemyLine1 = new List<Character>();
+	public List<Character> enemyLine2 = new List<Character>();
+	public List<Character> enemyLine3 = new List<Character>();
+
+	private static GameManager m_instance;
     public static GameManager instance
     {
         get
@@ -18,7 +22,6 @@ public class GameManager : MonoBehaviour
                 m_instance = FindObjectOfType<GameManager>();
                 if (m_instance == null)
                 {
-                    // 씬에 MySingleton 오브젝트가 없는 경우 새로 생성합니다.
                     GameObject singletonObject = new GameObject("BattleManager");
                     m_instance = singletonObject.AddComponent<GameManager>();
                 }
@@ -41,7 +44,11 @@ public class GameManager : MonoBehaviour
         BattleManager.instance.InsertPlayer(playerLine1, BattleManager.Line.Front);
         BattleManager.instance.InsertPlayer(playerLine2, BattleManager.Line.Mid);
         BattleManager.instance.InsertPlayer(playerLine3, BattleManager.Line.Back);
-    }
+
+		BattleManager.instance.InsertEnemy(enemyLine1, BattleManager.Line.Front);
+		BattleManager.instance.InsertEnemy(enemyLine2, BattleManager.Line.Mid);
+		BattleManager.instance.InsertEnemy(enemyLine3, BattleManager.Line.Back);
+	}
 
     // Update is called once per frame
     void Update()

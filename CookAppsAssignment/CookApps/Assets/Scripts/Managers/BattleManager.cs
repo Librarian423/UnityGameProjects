@@ -30,7 +30,6 @@ public class BattleManager : MonoBehaviour
                 m_instance = FindObjectOfType<BattleManager>();
                 if (m_instance == null)
                 {
-                    // 씬에 MySingleton 오브젝트가 없는 경우 새로 생성합니다.
                     GameObject singletonObject = new GameObject("BattleManager");
                     m_instance = singletonObject.AddComponent<BattleManager>();
                 }
@@ -100,7 +99,48 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    private void SetPositions(List<Character> characters, bool isTwo, float xPivot, float yPivot)
+	public void InsertEnemy(List<Character> characters, Line line)
+	{
+		float yAxisPivot = 0f;
+		bool isTwo = false;
+		if (characters.Count <= 0)
+		{
+			return;
+		}
+		switch (characters.Count)
+		{
+			case 1:
+				yAxisPivot = 0f;
+				break;
+			case 2:
+				yAxisPivot = 1f;
+				isTwo = true;
+				break;
+			case 3:
+				yAxisPivot = 2f;
+				break;
+		}
+
+		switch (line)
+		{
+			case Line.Front:
+				SetPositions(characters, isTwo, 4f, yAxisPivot);
+				break;
+			case Line.Mid:
+				SetPositions(characters, isTwo, 6f, yAxisPivot);
+				break;
+			case Line.Back:
+				SetPositions(characters, isTwo, 8f, yAxisPivot);
+				break;
+		}
+
+		foreach (var player in characters)
+		{
+			enemies.Add(player);
+		}
+	}
+
+	private void SetPositions(List<Character> characters, bool isTwo, float xPivot, float yPivot)
     {
         float temp = yPivot;
         
@@ -136,12 +176,14 @@ public class BattleManager : MonoBehaviour
         foreach (var player in players)
         {
             player.side = Character.Side.Player;
+            player.InitRotation();
         }
 
         foreach (var enemy in enemies)
         {
             enemy.side = Character.Side.Enemy;
-        }
+			enemy.InitRotation();
+		}
     }
 
     public bool GetIsPlayerAlive()

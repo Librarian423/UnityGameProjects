@@ -34,9 +34,14 @@ public class Character : MonoBehaviour
 
     //timer
     private float timer;
+    private float waitTime = 3f;
 
-    //Components
-    protected Animator animator;
+    //bool
+    private bool isReady;
+    public bool IsReady { get; set; }
+
+	//Components
+	protected Animator animator;
     protected Collider collider;
     protected Rigidbody2D rigidbody;
     protected SpriteRenderer sprite;
@@ -195,13 +200,24 @@ public class Character : MonoBehaviour
         InitStats();
 
         state = State.Idle;
-        timer = AttackSpeed;
+        timer = 0f;//AttackSpeed;
+        IsReady = false;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        timer += Time.deltaTime;
+		timer += Time.deltaTime;
+        if (!IsReady) 
+        {
+            if (timer >= waitTime)
+            {
+				timer = AttackSpeed;
+                IsReady = true;
+			}
+            return;
+        }
+        
 
         //Set Target
         if (target == null || !target.gameObject.activeSelf)
@@ -386,6 +402,8 @@ public class Character : MonoBehaviour
     {
         return position;
     }
+
+    public virtual void InitRotation() { }
 
     protected virtual void PassiveSkill() { }
     public virtual void ActiveSkill() { }
