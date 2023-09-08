@@ -403,6 +403,11 @@ public class Character : MonoBehaviour
         return position;
     }
 
+    public Sprite GetProfile()
+    {
+        return stats.profile;
+    }
+
     public virtual void InitRotation() { }
 
     protected virtual void PassiveSkill() { }

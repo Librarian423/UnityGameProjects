@@ -12,6 +12,7 @@ public class Stats : ScriptableObject
         Back,
     }
 
+    public Sprite profile;
     public Position position;
     public float hp;
     public float atk;
