@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40e9ab6ce15634591be2d0b5441d60a7, type: 3}
-  m_Name: EnemyTest
+  m_Name: OldMan 2
   m_EditorClassIdentifier: 
-  profile: {fileID: -1597811106, guid: d48daa810945e4f4fac48142a980699d, type: 3}
-  animatorController: {fileID: 9100000, guid: 39512589d9aff412e9e8201eee799ac3, type: 2}
-  position: 0
-  hp: 30
-  atk: 1
+  profile: {fileID: -185495680, guid: a82243c0d454d466587e612224f304c3, type: 3}
+  animatorController: {fileID: 9100000, guid: ce18ef998112741aa8be9bca7768ab8b, type: 2}
+  position: 2
+  hp: 100
+  atk: 10
   def: 0
   attackRange: 1
-  moveSpeed: 0.7
+  moveSpeed: 1
   attackSpeed: 1

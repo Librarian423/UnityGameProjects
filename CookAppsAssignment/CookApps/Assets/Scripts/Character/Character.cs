@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using static OldMan;
 using static Wolf;
@@ -407,6 +408,13 @@ public class Character : MonoBehaviour
     {
         return stats.profile;
     }
+
+    public RuntimeAnimatorController GetAnimator()
+    {
+        //Debug.Log(animator);
+        return stats.animatorController; 
+
+	}
 
     public virtual void InitRotation() { }
 

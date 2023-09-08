@@ -5,5 +5,29 @@ using UnityEngine.UI;
 
 public class Line : MonoBehaviour
 {
-    List<Image> images = new List<Image>();
+	[SerializeField] private int count = 0;
+
+	public bool IsFull()
+	{
+		if (count > 3)
+		{
+			return false;
+		}
+		return true;
+	}
+	public void IncreaseCount()
+	{
+		if (count < 3) 
+		{
+			count++;
+		}
+	}
+
+	public void DecreaseCount()
+	{
+		if (count > 0)
+		{
+			count--;
+		}
+	}
 }
