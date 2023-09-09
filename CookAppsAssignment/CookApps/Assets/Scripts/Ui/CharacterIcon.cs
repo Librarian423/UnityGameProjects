@@ -8,7 +8,10 @@ public class CharacterIcon : MonoBehaviour
 {
     private Animator animator;
     private Image image;
-    private SpriteRenderer sprite; 
+    private SpriteRenderer sprite;
+    private int id;
+
+    private bool isPlayer;
 
     private void Awake()
     {
@@ -26,5 +29,25 @@ public class CharacterIcon : MonoBehaviour
     public void SetAnimator(RuntimeAnimatorController animator)
     {
 		this.animator.runtimeAnimatorController = animator;
+    }
+
+    public void SetIsPlayer(bool isPlayer)
+    {
+        this.isPlayer = isPlayer;
+    }
+
+    public bool GetIsPlayer()
+    {
+        return isPlayer;
+    }
+
+    public void SetId(int num)
+    {
+        id = num;
+    }
+
+    public int GetId()
+    {
+        return id;
     }
 }

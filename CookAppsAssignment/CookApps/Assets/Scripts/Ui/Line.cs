@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Line : MonoBehaviour
 {
 	[SerializeField] private int count = 0;
+	//[SerializeField] List<CharacterIcon> players = new List<CharacterIcon>();
 
 	public bool IsFull()
 	{
@@ -20,6 +21,7 @@ public class Line : MonoBehaviour
 		if (count < 3) 
 		{
 			count++;
+			//players.Add(icon);
 		}
 	}
 
@@ -28,6 +30,7 @@ public class Line : MonoBehaviour
 		if (count > 0)
 		{
 			count--;
+			//players.Remove(icon);
 		}
 	}
 }

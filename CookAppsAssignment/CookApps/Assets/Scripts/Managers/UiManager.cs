@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.iOS;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 using static BattleManager;
@@ -101,6 +103,11 @@ public class UiManager : MonoBehaviour
 		currentStage.SetReadyEnemies();
 	}
 
+	public void PopUpBanner()
+	{
+
+	}
+
 	//Player Character Button
 	//public void OnClickPlayerButton(Character character)
 	//{
@@ -120,38 +127,35 @@ public class UiManager : MonoBehaviour
 	//}
 
 	//Check if line is full
-	public void TrySetFront(Character character)
+	public void TrySetFront(Character character, int id)
 	{
 		if (playerLine1.IsFull())
 		{
-			playerLine1.IncreaseCount();
-			SetReadyPlayerLine1(character.GetProfile());	
+			SetReadyPlayerLine1(character.GetProfile(), id);
 		}
 		else
 		{
-			TrySetMiddle(character);
+			TrySetMiddle(character, id);
 		}
 	}
 
-	public void TrySetMiddle(Character character)
+	public void TrySetMiddle(Character character, int id)
 	{
 		if (playerLine2.IsFull())
 		{
-			playerLine2.IncreaseCount();
-			SetReadyPlayerLine2(character.GetProfile());
+			SetReadyPlayerLine2(character.GetProfile(), id);
 		}
 		else
 		{
-			TrySetBack(character);
+			TrySetBack(character, id);
 		}
 	}
 
-	public void TrySetBack(Character character)
+	public void TrySetBack(Character character, int id)
 	{
 		if (playerLine3.IsFull())
 		{
-			playerLine3.IncreaseCount();
-			SetReadyPlayerLine3(character.GetProfile());
+			SetReadyPlayerLine3(character.GetProfile(), id);
 		}
 		else
 		{
@@ -159,51 +163,96 @@ public class UiManager : MonoBehaviour
 		}
 	}
 
-	public void PopUpBanner()
+	//Remove player from line
+	public void RemovePlayer(int id)
 	{
+		var players = playerLine1.GetComponentsInChildren<CharacterIcon>().ToList();
 
+		foreach (var player in players)
+		{
+			if (player.GetId().Equals(id))
+			{
+				Destroy(player.gameObject);
+				Debug.Log("found");
+			}
+		}
 	}
 
-	private void SetReadyPlayerLine1(Sprite sprite)
+	private void RemovePlayerLine1(Sprite sprite)
+	{
+		
+	}
+
+	private void RemovePlayerLine2(Sprite sprite)
+	{
+		
+	}
+
+	private void RemovePlayerLine3(Sprite sprite)
+	{
+		
+	}
+
+	//Add images in player line and Set sprite
+	private void SetPlayer(CharacterIcon characterIcon, Sprite sprite)
+	{
+		characterIcon.SetImageSprite(sprite);
+		characterIcon.SetIsPlayer(true);
+	}
+
+	private void SetReadyPlayerLine1(Sprite sprite, int id)
 	{
 		var icon = Instantiate(IconPrefab, playerLine1.transform);
-		icon.SetImageSprite(sprite);
-		//icon.SetAnimator(animator);
+		icon.SetId(id);
+		playerLine1.IncreaseCount();
+		SetPlayer(icon, sprite);
 	}
 
-	private void SetReadyPlayerLine2(Sprite sprite)
+	private void SetReadyPlayerLine2(Sprite sprite, int id)
 	{
 		var icon = Instantiate(IconPrefab, playerLine2.transform);
-		icon.SetImageSprite(sprite);
-		//icon.SetAnimator(animator);
+		icon.SetId(id);
+		playerLine2.IncreaseCount();
+		SetPlayer(icon, sprite);
 	}
 
-	private void SetReadyPlayerLine3(Sprite sprite)
+	private void SetReadyPlayerLine3(Sprite sprite, int id)
 	{
 		var icon = Instantiate(IconPrefab, playerLine3.transform);
-		icon.SetImageSprite(sprite);
-		//icon.SetAnimator(animator);
+		icon.SetId(id);
+		playerLine3.IncreaseCount();
+		SetPlayer(icon, sprite);
 	}
 
-	//Add images in line and Set sprite
+
+	//Add images in enemy line and Set sprite
+	private void SetEnemy(CharacterIcon characterIcon,Sprite sprite)
+	{
+		characterIcon.SetImageSprite(sprite);
+		characterIcon.SetIsPlayer(false);
+	}
+
 	public void SetReadyEnemyLine1(Sprite sprite)//, RuntimeAnimatorController animator)
 	{
 		var icon = Instantiate(IconPrefab, enemyLine1.transform);
-		icon.SetImageSprite(sprite);
+		SetEnemy(icon, sprite);
+		//icon.SetImageSprite(sprite);
 		//icon.SetAnimator(animator);
 	}
 
     public void SetReadyEnemyLine2(Sprite sprite)//, RuntimeAnimatorController animator)
     {
 		var icon = Instantiate(IconPrefab, enemyLine2.transform);
-		icon.SetImageSprite(sprite);
+		SetEnemy(icon, sprite);
+		//icon.SetImageSprite(sprite);
 		//icon.SetAnimator(animator);
 	}
 
-    public void SetReadyEnemyLine3(Sprite sprite)//, RuntimeAnimatorController animator)
+	public void SetReadyEnemyLine3(Sprite sprite)//, RuntimeAnimatorController animator)
 	{
 		var icon = Instantiate(IconPrefab, enemyLine3.transform);
-		icon.SetImageSprite(sprite);
+		SetEnemy(icon, sprite);
+		//icon.SetImageSprite(sprite);
 		//icon.SetAnimator(animator);
 	}
 
