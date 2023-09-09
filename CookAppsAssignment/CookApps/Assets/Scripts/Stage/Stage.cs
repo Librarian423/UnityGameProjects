@@ -56,7 +56,7 @@ public class Stage : MonoBehaviour
         {
             foreach (var enemy in Line1enemies)
             {
-                UiManager.instance.SetReadyEnemyLine1(enemy.GetProfile());//, enemy.GetAnimator());
+                UiManager.instance.SetReadyEnemyLine1(enemy);//, enemy.GetAnimator());
             }
             
         }
@@ -65,7 +65,7 @@ public class Stage : MonoBehaviour
         {
 			foreach (var enemy in Line2enemies)
 			{
-                UiManager.instance.SetReadyEnemyLine2(enemy.GetProfile());//, enemy.GetAnimator());
+                UiManager.instance.SetReadyEnemyLine2(enemy);//, enemy.GetAnimator());
 			}
 		}
 
@@ -73,7 +73,7 @@ public class Stage : MonoBehaviour
         {
 			foreach (var enemy in Line3enemies)
 			{
-                UiManager.instance.SetReadyEnemyLine3(enemy.GetProfile());//, enemy.GetAnimator());
+                UiManager.instance.SetReadyEnemyLine3(enemy);//, enemy.GetAnimator());
 			}
 		}
     }

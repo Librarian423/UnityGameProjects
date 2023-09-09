@@ -44,22 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c7e8490074fd4b5cb6045b2d2d184cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLine1:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerLine2:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerLine3:
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyLine1:
-  - {fileID: 0}
-  - {fileID: 0}
-  enemyLine2:
-  - {fileID: 0}
-  - {fileID: 0}
+  playerLine1: []
+  playerLine2: []
+  playerLine3: []
+  enemyLine1: []
+  enemyLine2: []
   enemyLine3: []
   battleManager: {fileID: 0}

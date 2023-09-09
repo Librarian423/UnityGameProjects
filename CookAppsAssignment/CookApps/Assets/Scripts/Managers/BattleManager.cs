@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class BattleManager : MonoBehaviour
 
     private Vector3 playerPivot = new Vector3(-4, 0, 0);
     private Vector3 enemyPivot = new Vector3(4, 0, 0);
+    private float y = 0f;
+    private float negative = 1f;
     
 
     private static BattleManager m_instance;
@@ -44,29 +48,34 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+		DontDestroyOnLoad(gameObject);
+	}
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        SetCharactersSide();
+        if (SceneManager.GetActiveScene().buildIndex == 2 && IsListEmpty()) 
+        {
+            GameManager.instance.playerLine1.Clear();
+			GameManager.instance.playerLine2.Clear();
+			GameManager.instance.playerLine3.Clear();
+			GameManager.instance.enemyLine1.Clear();
+			GameManager.instance.enemyLine2.Clear();
+			GameManager.instance.enemyLine3.Clear();
+			players.Clear();
+            enemies.Clear();
+			SceneManager.LoadScene(1);
+		}
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //IsListEmpty();
-    }
-
-    public void InsertPlayer(List<Character> characters, Line line)
+    public void InsertPlayer(Character character, int count, Line line)
     {
         float yAxisPivot = 0f;
         bool isTwo = false;
-        if (characters.Count <= 0)
+        if (count <= 0)
         {
             return;
         }
-        switch (characters.Count)
+        switch (count)
         {
             case 1:
                 yAxisPivot = 0f;
@@ -83,31 +92,31 @@ public class BattleManager : MonoBehaviour
         switch (line)
         {
             case Line.Front:
-                SetPositions(characters, isTwo, -4f, yAxisPivot);
+                SetPositions(character, isTwo, -4f, yAxisPivot);
                 break;
             case Line.Mid:
-                SetPositions(characters, isTwo, -6f, yAxisPivot);
+                SetPositions(character, isTwo, -6f, yAxisPivot);
                 break;
             case Line.Back:
-                SetPositions(characters, isTwo, -8f, yAxisPivot);
+                SetPositions(character, isTwo, -8f, yAxisPivot);
                 break;
         }
 
-        foreach (var player in characters)
-        {
-            players.Add(player);
-        }
+        //foreach (var player in characters)
+        //{
+        //    players.Add(player);
+        //}
     }
 
-	public void InsertEnemy(List<Character> characters, Line line)
+	public void InsertEnemy(Character character, int count, Line line)
 	{
 		float yAxisPivot = 0f;
 		bool isTwo = false;
-		if (characters.Count <= 0)
+		if (count <= 0)
 		{
 			return;
 		}
-		switch (characters.Count)
+		switch (count)
 		{
 			case 1:
 				yAxisPivot = 0f;
@@ -124,38 +133,54 @@ public class BattleManager : MonoBehaviour
 		switch (line)
 		{
 			case Line.Front:
-				SetPositions(characters, isTwo, 4f, yAxisPivot);
+				SetPositions(character, isTwo, 4f, yAxisPivot);
 				break;
 			case Line.Mid:
-				SetPositions(characters, isTwo, 6f, yAxisPivot);
+				SetPositions(character, isTwo, 6f, yAxisPivot);
 				break;
 			case Line.Back:
-				SetPositions(characters, isTwo, 8f, yAxisPivot);
+				SetPositions(character, isTwo, 8f, yAxisPivot);
 				break;
 		}
 
-		foreach (var player in characters)
-		{
-			enemies.Add(player);
-		}
+		//foreach (var player in characters)
+		//{
+		//	enemies.Add(player);
+		//}
 	}
 
-	private void SetPositions(List<Character> characters, bool isTwo, float xPivot, float yPivot)
+	private void SetPositions(Character character, bool isTwo, float xPivot, float yPivot)
     {
-        float temp = yPivot;
-        
-        foreach (var cha in characters)
+        float temp = yPivot * negative - y;
+		character.transform.position = new Vector3(xPivot, temp, 0f);
+		if (isTwo)
         {
-            cha.transform.position = new Vector3(xPivot, temp, 0f);
-            if (isTwo)
-            {
-                temp *= -1;
-            }
-            else
-            {
-                temp -= yPivot;
-            }  
-        }
+            negative *= -1f;
+		}
+        else
+        {
+            y += yPivot;
+			negative = 1f;
+		}
+        
+        //foreach (var cha in characters)
+        //{
+        //    cha.transform.position = new Vector3(xPivot, temp, 0f);
+        //    if (isTwo)
+        //    {
+        //        temp *= -1;
+        //    }
+        //    else
+        //    {
+        //        temp -= yPivot;
+        //    }  
+        //}
+    }
+
+    public void ResetPivot()
+    {
+        y = 0f;
+        negative = 1f;
     }
 
     private bool IsListEmpty()
@@ -178,8 +203,8 @@ public class BattleManager : MonoBehaviour
             player.side = Character.Side.Player;
             player.InitRotation();
         }
-
-        foreach (var enemy in enemies)
+		
+		foreach (var enemy in enemies)
         {
             enemy.side = Character.Side.Enemy;
 			enemy.InitRotation();

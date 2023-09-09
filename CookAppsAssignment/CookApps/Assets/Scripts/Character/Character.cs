@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
-using static OldMan;
-using static Wolf;
+
 
 public class Character : MonoBehaviour
 {
@@ -45,7 +44,7 @@ public class Character : MonoBehaviour
 	protected Animator animator;
     protected Collider collider;
     protected Rigidbody2D rigidbody;
-    protected SpriteRenderer sprite;
+    [SerializeField] protected SpriteRenderer sprite;
 
     //Animation
     protected int hashIsMoving = Animator.StringToHash("IsMoving");
@@ -189,6 +188,10 @@ public class Character : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+		sprite = GetComponent<SpriteRenderer>();
+	}
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -196,7 +199,6 @@ public class Character : MonoBehaviour
         animator = GetComponent<Animator>();
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
 
         InitStats();
 

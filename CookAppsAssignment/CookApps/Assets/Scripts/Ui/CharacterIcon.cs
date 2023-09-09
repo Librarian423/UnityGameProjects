@@ -9,6 +9,8 @@ public class CharacterIcon : MonoBehaviour
     private Animator animator;
     private Image image;
     private SpriteRenderer sprite;
+
+    private Character character;
     private int id;
 
     private bool isPlayer;
@@ -19,6 +21,22 @@ public class CharacterIcon : MonoBehaviour
         image = GetComponent<Image>();
 		sprite = GetComponent<SpriteRenderer>();
 	}
+
+    public void SetIcon(Character character)
+    {
+        SetCharacter(character);
+        SetImageSprite(character.GetProfile());
+    }
+
+    public void SetCharacter(Character character)
+    {
+        this.character = character;
+    }
+
+    public Character GetCharacter()
+    {
+        return character;
+    }
 
     public void SetImageSprite(Sprite sprite)
     {

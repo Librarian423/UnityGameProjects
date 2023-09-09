@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
+//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -37,35 +37,109 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Debug.Log(SceneManager.GetActiveScene().buildIndex);
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            battleManager.SetActive(true);
-			BattleManager.instance.InsertPlayer(playerLine1, BattleManager.Line.Front);
-			BattleManager.instance.InsertPlayer(playerLine2, BattleManager.Line.Mid);
-			BattleManager.instance.InsertPlayer(playerLine3, BattleManager.Line.Back);
-
-			BattleManager.instance.InsertEnemy(enemyLine1, BattleManager.Line.Front);
-			BattleManager.instance.InsertEnemy(enemyLine2, BattleManager.Line.Mid);
-			BattleManager.instance.InsertEnemy(enemyLine3, BattleManager.Line.Back);
-
-           
+		if (instance != this)
+		{
+			Destroy(gameObject);
 		}
-        
+		DontDestroyOnLoad(gameObject);
 	}
 
-    // Update is called once per frame
-    void Update()
+	void OnEnable()
+	{
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		SetBattleScene();
+	}
+
+	void OnDisable()
+	{
+		SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	public void SetBattleScene()
+	{
+		//Debug.Log(SceneManager.GetActiveScene().buildIndex);
+		if (SceneManager.GetActiveScene().buildIndex == 2)
+		{
+			battleManager.SetActive(true);
+			MakeCharacters();
+			BattleManager.instance.SetCharactersSide();
+		}
+	}
+
+    private void MakeCharacters()
     {
-        
-    }
+		//player
+        if (playerLine1.Count > 0)
+        {
+            foreach (var cha in playerLine1)
+            {
+				var temp = Instantiate(cha);
+				
+				BattleManager.instance.players.Add(temp);
+				BattleManager.instance.InsertPlayer(temp, playerLine1.Count, BattleManager.Line.Front);
+			}
+			BattleManager.instance.ResetPivot();
+
+		}
+		
+		if (playerLine2.Count > 0)
+		{
+			foreach (var cha in playerLine2)
+			{
+				var temp = Instantiate(cha);
+				BattleManager.instance.players.Add(temp);
+				BattleManager.instance.InsertPlayer(temp, playerLine2.Count, BattleManager.Line.Mid);
+			}
+			BattleManager.instance.ResetPivot();
+		}
+
+		if (playerLine3.Count > 0)
+		{
+			foreach (var cha in playerLine3)
+			{
+				var temp = Instantiate(cha);
+				BattleManager.instance.players.Add(temp);
+				BattleManager.instance.InsertPlayer(temp, playerLine3.Count, BattleManager.Line.Back);
+			}
+			BattleManager.instance.ResetPivot();
+		}
+
+		//enemy
+		if (enemyLine1.Count > 0)
+		{
+			foreach (var cha in enemyLine1)
+			{
+				var temp = Instantiate(cha);
+				BattleManager.instance.enemies.Add(temp);
+				BattleManager.instance.InsertEnemy(temp, enemyLine1.Count, BattleManager.Line.Front);
+			}
+			BattleManager.instance.ResetPivot();
+		}
+
+		if (enemyLine2.Count > 0)
+		{
+			foreach (var cha in enemyLine2)
+			{
+				var temp = Instantiate(cha);
+				BattleManager.instance.enemies.Add(temp);
+				BattleManager.instance.InsertEnemy(temp, enemyLine2.Count, BattleManager.Line.Mid);
+			}
+			BattleManager.instance.ResetPivot();
+		}
+
+		if (enemyLine3.Count > 0)
+		{
+			foreach (var cha in enemyLine3)
+			{
+				var temp = Instantiate(cha);
+				BattleManager.instance.enemies.Add(temp);
+				BattleManager.instance.InsertEnemy(temp, enemyLine3.Count, BattleManager.Line.Back);
+			}
+			BattleManager.instance.ResetPivot();
+		}
+	}
 }

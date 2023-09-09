@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class Line : MonoBehaviour
 {
 	[SerializeField] private int count = 0;
-	//[SerializeField] List<CharacterIcon> players = new List<CharacterIcon>();
 
 	public bool IsFull()
 	{
-		if (count > 3)
+		if (count >= 3)
 		{
 			return false;
 		}

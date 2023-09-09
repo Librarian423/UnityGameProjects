@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,12 @@ public class UiManager : MonoBehaviour
 	[SerializeField] private Line playerLine3;
 
 	[SerializeField] private GameObject enemyLine1;
-    [SerializeField] private GameObject enemyLine2;
+	[SerializeField] private GameObject enemyLine2;
 	[SerializeField] private GameObject enemyLine3;
 
 	[SerializeField] private CharacterIcon IconPrefab;
 
-    private static UiManager m_instance;
+	private static UiManager m_instance;
 	public static UiManager instance
 	{
 		get
@@ -52,50 +53,60 @@ public class UiManager : MonoBehaviour
 	}
 	// Start is called before the first frame update
 	void Start()
-    {
-        
-    }
+	{
+
+	}
 
 	public void BattleStart()
 	{
-		//GameManager.instance
+		//insert player
+		InsertCharacters(playerLine1.gameObject, 1, true);
+		InsertCharacters(playerLine2.gameObject, 2, true);
+		InsertCharacters(playerLine3.gameObject, 3, true);
+
+		//insert enemy
+		InsertCharacters(enemyLine1, 1, false);
+		InsertCharacters(enemyLine2, 2, false);
+		InsertCharacters(enemyLine3, 3, false);
+		
+		//clear
+		DestroyEnemyLineChildren();
 		//Load Battle Scene
 		SceneManager.LoadScene(2);
-    }
+	}
 
 	public void SetStage(Stage stage)
 	{
 		currentStage = stage;
 		SetBattleInfoStageName(currentStage.GetStageName());
-
-    }
+	}
 
 	public void SetBattleInfoStageName(string name)
 	{
 		stageName.text = name;
-    }
+	}
 
 	public void OnClickBattleInfoNext()
-	{		
+	{
 		if (currentStage.GetNextStage() != null)
 		{
 			var temp = currentStage.GetNextStage();
 			currentStage = temp;
 
 			SetStage(currentStage);
-        }		
+		}
 	}
 
-    public void OnClickBattleInfoPrev()
-    {
-        if (currentStage.GetPrevStage() != null)
-        {
-            var temp = currentStage.GetPrevStage();
-            currentStage = temp;
+	public void OnClickBattleInfoPrev()
+	{
+		if (currentStage.GetPrevStage() != null)
+		{
+			var temp = currentStage.GetPrevStage();
+			currentStage = temp;
 
-            SetStage(currentStage);
-        }
-    }
+			SetStage(currentStage);
+		}
+	}
 
 	//Ready Button
 	public void OnClickReadyButton()
@@ -103,35 +114,66 @@ public class UiManager : MonoBehaviour
 		currentStage.SetReadyEnemies();
 	}
 
-	public void PopUpBanner()
+	//Insert characters in GameManager
+	private void InsertCharacters(GameObject gameObject, int index, bool isPlayer)
 	{
-
+		var characters = gameObject.GetComponentsInChildren<CharacterIcon>().ToList();
+		if (isPlayer)
+		{
+			foreach (var cha in characters)
+			{
+				InsertPlayer(cha.GetCharacter(), index);
+			}
+		}
+		else
+		{
+			foreach (var cha in characters)
+			{
+				InsertEnemy(cha.GetCharacter(), index);
+			}
+		}
+		
+		
 	}
 
-	//Player Character Button
-	//public void OnClickPlayerButton(Character character)
-	//{
-	//	switch (character.GetPosition())
-	//	{
-	//		case Stats.Position.Front:
-	//			TrySetFront(character);
-	//			break;
-	//		case Stats.Position.Middle:
-	//			TrySetMiddle(character);
-	//			break;
-	//		case Stats.Position.Back:
-	//			TrySetBack(character);
-	//			break;
+	private void InsertPlayer(Character character, int index)
+	{
+		switch (index)
+		{
+			case 1:
+				GameManager.instance.playerLine1.Add(character);
+				break;
+			case 2:
+				GameManager.instance.playerLine2.Add(character);
+				break;
+			case 3:
+				GameManager.instance.playerLine3.Add(character);
+				break;
+		}
+	}
 
-	//	}
-	//}
+	private void InsertEnemy(Character character, int index)
+	{
+		switch (index)
+		{
+			case 1:
+				GameManager.instance.enemyLine1.Add(character);
+				break;
+			case 2:
+				GameManager.instance.enemyLine2.Add(character);
+				break;
+			case 3:
+				GameManager.instance.enemyLine3.Add(character);
+				break;
+		}
+	}
 
 	//Check if line is full
 	public void TrySetFront(Character character, int id)
 	{
 		if (playerLine1.IsFull())
 		{
-			SetReadyPlayerLine1(character.GetProfile(), id);
+			SetReadyPlayerLine1(character, id);
 		}
 		else
 		{
@@ -143,7 +185,7 @@ public class UiManager : MonoBehaviour
 	{
 		if (playerLine2.IsFull())
 		{
-			SetReadyPlayerLine2(character.GetProfile(), id);
+			SetReadyPlayerLine2(character, id);
 		}
 		else
 		{
@@ -155,73 +197,80 @@ public class UiManager : MonoBehaviour
 	{
 		if (playerLine3.IsFull())
 		{
-			SetReadyPlayerLine3(character.GetProfile(), id);
-		}
-		else
-		{
-			PopUpBanner();
+			SetReadyPlayerLine3(character, id);
 		}
 	}
 
 	//Remove player from line
 	public void RemovePlayer(int id)
 	{
+		//search line1
 		var players = playerLine1.GetComponentsInChildren<CharacterIcon>().ToList();
-
 		foreach (var player in players)
 		{
 			if (player.GetId().Equals(id))
 			{
 				Destroy(player.gameObject);
-				Debug.Log("found");
+				playerLine1.DecreaseCount();
+				return;
+			}
+		}
+
+		//search line2
+		players = playerLine2.GetComponentsInChildren<CharacterIcon>().ToList();
+		foreach (var player in players)
+		{
+			if (player.GetId().Equals(id))
+			{
+				Destroy(player.gameObject);
+				playerLine2.DecreaseCount();
+				return;
+			}
+		}
+
+		//search line3
+		players = playerLine3.GetComponentsInChildren<CharacterIcon>().ToList();
+		foreach (var player in players)
+		{
+			if (player.GetId().Equals(id))
+			{
+				Destroy(player.gameObject);
+				playerLine3.DecreaseCount();
+				return;
 			}
 		}
 	}
 
-	private void RemovePlayerLine1(Sprite sprite)
-	{
-		
-	}
-
-	private void RemovePlayerLine2(Sprite sprite)
-	{
-		
-	}
-
-	private void RemovePlayerLine3(Sprite sprite)
-	{
-		
-	}
-
 	//Add images in player line and Set sprite
-	private void SetPlayer(CharacterIcon characterIcon, Sprite sprite)
-	{
-		characterIcon.SetImageSprite(sprite);
-		characterIcon.SetIsPlayer(true);
-	}
 
-	private void SetReadyPlayerLine1(Sprite sprite, int id)
+	//private void SetPlayer(CharacterIcon characterIcon, Sprite sprite)
+	//{
+	//	characterIcon.SetImageSprite(sprite);
+	//	characterIcon.SetIsPlayer(true);
+	//}
+
+	private void SetReadyPlayerLine1(Character character, int id)
 	{
 		var icon = Instantiate(IconPrefab, playerLine1.transform);
 		icon.SetId(id);
+		icon.SetIcon(character);
 		playerLine1.IncreaseCount();
-		SetPlayer(icon, sprite);
 	}
 
-	private void SetReadyPlayerLine2(Sprite sprite, int id)
+	private void SetReadyPlayerLine2(Character character, int id)
 	{
 		var icon = Instantiate(IconPrefab, playerLine2.transform);
 		icon.SetId(id);
+		icon.SetIcon(character);
 		playerLine2.IncreaseCount();
-		SetPlayer(icon, sprite);
 	}
 
-	private void SetReadyPlayerLine3(Sprite sprite, int id)
+	private void SetReadyPlayerLine3(Character character, int id)
 	{
 		var icon = Instantiate(IconPrefab, playerLine3.transform);
 		icon.SetId(id);
+		icon.SetIcon(character);
 		playerLine3.IncreaseCount();
-		SetPlayer(icon, sprite);
 	}
 
 
@@ -232,26 +281,29 @@ public class UiManager : MonoBehaviour
 		characterIcon.SetIsPlayer(false);
 	}
 
-	public void SetReadyEnemyLine1(Sprite sprite)//, RuntimeAnimatorController animator)
+	public void SetReadyEnemyLine1(Character character)//, RuntimeAnimatorController animator)
 	{
 		var icon = Instantiate(IconPrefab, enemyLine1.transform);
-		SetEnemy(icon, sprite);
+		icon.SetIcon(character);
+		//SetEnemy(icon, sprite);
 		//icon.SetImageSprite(sprite);
 		//icon.SetAnimator(animator);
 	}
 
-    public void SetReadyEnemyLine2(Sprite sprite)//, RuntimeAnimatorController animator)
+    public void SetReadyEnemyLine2(Character character)//, RuntimeAnimatorController animator)
     {
 		var icon = Instantiate(IconPrefab, enemyLine2.transform);
-		SetEnemy(icon, sprite);
+		icon.SetIcon(character);
+		//SetEnemy(icon, sprite);
 		//icon.SetImageSprite(sprite);
 		//icon.SetAnimator(animator);
 	}
 
-	public void SetReadyEnemyLine3(Sprite sprite)//, RuntimeAnimatorController animator)
+	public void SetReadyEnemyLine3(Character character)//, RuntimeAnimatorController animator)
 	{
 		var icon = Instantiate(IconPrefab, enemyLine3.transform);
-		SetEnemy(icon, sprite);
+		icon.SetIcon(character);
+		//SetEnemy(icon, sprite);
 		//icon.SetImageSprite(sprite);
 		//icon.SetAnimator(animator);
 	}
