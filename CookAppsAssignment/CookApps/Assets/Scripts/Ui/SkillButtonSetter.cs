@@ -6,7 +6,7 @@ public class SkillButtonSetter : MonoBehaviour
 {
 	private RectTransform SkillButtons;
 
-    private float size = 100f;
+    private float size = 150f;
 
     private void Awake()
     {

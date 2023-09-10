@@ -22,7 +22,8 @@ public class BattleManager : MonoBehaviour
     private Vector3 enemyPivot = new Vector3(4, 0, 0);
     private float y = 0f;
     private float negative = 1f;
-    
+
+    private bool isWon = false;
 
     private static BattleManager m_instance;
     public static BattleManager instance
@@ -56,17 +57,21 @@ public class BattleManager : MonoBehaviour
         //Game Clear
         if (SceneManager.GetActiveScene().buildIndex == 2 && IsListEmpty()) 
         {
-            GameManager.instance.playerLine1.Clear();
-			GameManager.instance.playerLine2.Clear();
-			GameManager.instance.playerLine3.Clear();
-			GameManager.instance.enemyLine1.Clear();
-			GameManager.instance.enemyLine2.Clear();
-			GameManager.instance.enemyLine3.Clear();
-			players.Clear();
-            enemies.Clear();
-			SceneManager.LoadScene(1);
+			UiManager.instance.SetResultCanvas(isWon);
 		}
     }
+
+    public void ResetGame()
+    {
+		GameManager.instance.playerLine1.Clear();
+		GameManager.instance.playerLine2.Clear();
+		GameManager.instance.playerLine3.Clear();
+		GameManager.instance.enemyLine1.Clear();
+		GameManager.instance.enemyLine2.Clear();
+		GameManager.instance.enemyLine3.Clear();
+		players.Clear();
+		enemies.Clear();
+	}
 
     public void InsertPlayer(Character character, int count, Line line)
     {
@@ -188,11 +193,13 @@ public class BattleManager : MonoBehaviour
     {
         if (players.Count <= 0)
         {
+            isWon = false;
             return true;
         }
         if (enemies.Count <= 0)
         {
-            return true;
+			isWon = true;
+			return true;
         }
         return false;
     }

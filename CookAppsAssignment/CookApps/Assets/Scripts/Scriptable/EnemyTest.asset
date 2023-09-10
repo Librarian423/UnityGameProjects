@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: EnemyTest
   m_EditorClassIdentifier: 
   profile: {fileID: -1597811106, guid: d48daa810945e4f4fac48142a980699d, type: 3}
-  animatorController: {fileID: 9100000, guid: 39512589d9aff412e9e8201eee799ac3, type: 2}
   position: 0
-  hp: 20
+  hp: 200
   atk: 1
   def: 0
   attackRange: 1

@@ -29,6 +29,10 @@ public class UiManager : MonoBehaviour
 	[SerializeField] private GameObject skillButtons;
 	[SerializeField] private SkillButton skillButton;
 
+	[Header("IngameUi")]
+	[SerializeField] private GameObject resultCanvas;
+	[SerializeField] private TextMeshProUGUI resultText;
+
 	private static UiManager m_instance;
 	public static UiManager instance
 	{
@@ -56,6 +60,25 @@ public class UiManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 	
+	public void SetResult(GameObject gameObject, TextMeshProUGUI text)
+	{
+		resultCanvas = gameObject;
+		resultText = text;
+	}
+
+	public void SetResultCanvas(bool isWon)
+	{
+		resultCanvas.SetActive(true);
+		if (isWon)
+		{
+			resultText.text = "You Win";
+		}
+		else
+		{
+			resultText.text = "You Lose";
+		}
+	}
+
 	public void SetPlayerLine1(Line line)
 	{
 		playerLine1 = line;

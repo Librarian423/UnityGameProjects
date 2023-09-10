@@ -29,4 +29,10 @@ public class ButtonEvent : MonoBehaviour
 	{
 		Application.Quit();
 	}
+
+	public void GotoMain()
+	{
+		BattleManager.instance.ResetGame();
+		SceneManager.LoadScene(1);
+	}
 }
