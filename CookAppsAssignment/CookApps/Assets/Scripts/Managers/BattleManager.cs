@@ -53,6 +53,7 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
+        //Game Clear
         if (SceneManager.GetActiveScene().buildIndex == 2 && IsListEmpty()) 
         {
             GameManager.instance.playerLine1.Clear();

@@ -59,17 +59,29 @@ public class GameManager : MonoBehaviour
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 	}
 
+	private int GetTotalPlayerCount()
+	{
+		int total = 0;
+		total += playerLine1.Count;
+		total += playerLine2.Count;
+		total += playerLine3.Count;
+		return total;
+	}
+
 	public void SetBattleScene()
 	{
 		//Debug.Log(SceneManager.GetActiveScene().buildIndex);
 		if (SceneManager.GetActiveScene().buildIndex == 2)
 		{
 			battleManager.SetActive(true);
-			MakeCharacters();
+			UiManager.instance.SetSkillButtonWidth(GetTotalPlayerCount());
+
+			MakeCharacters();			
 			BattleManager.instance.SetCharactersSide();
 		}
 	}
 
+	//Instantiate characters
     private void MakeCharacters()
     {
 		//player
@@ -81,6 +93,7 @@ public class GameManager : MonoBehaviour
 				
 				BattleManager.instance.players.Add(temp);
 				BattleManager.instance.InsertPlayer(temp, playerLine1.Count, BattleManager.Line.Front);
+				UiManager.instance.AddSkillButton(temp);
 			}
 			BattleManager.instance.ResetPivot();
 
@@ -91,8 +104,10 @@ public class GameManager : MonoBehaviour
 			foreach (var cha in playerLine2)
 			{
 				var temp = Instantiate(cha);
+
 				BattleManager.instance.players.Add(temp);
 				BattleManager.instance.InsertPlayer(temp, playerLine2.Count, BattleManager.Line.Mid);
+				UiManager.instance.AddSkillButton(temp);
 			}
 			BattleManager.instance.ResetPivot();
 		}
@@ -102,8 +117,10 @@ public class GameManager : MonoBehaviour
 			foreach (var cha in playerLine3)
 			{
 				var temp = Instantiate(cha);
+
 				BattleManager.instance.players.Add(temp);
 				BattleManager.instance.InsertPlayer(temp, playerLine3.Count, BattleManager.Line.Back);
+				UiManager.instance.AddSkillButton(temp);
 			}
 			BattleManager.instance.ResetPivot();
 		}

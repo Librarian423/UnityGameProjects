@@ -22,4 +22,5 @@ public class Stats : ScriptableObject
     public float attackRange;
     public float moveSpeed;
     public float attackSpeed;
+    public float coolTime;
 }

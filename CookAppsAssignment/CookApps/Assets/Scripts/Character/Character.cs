@@ -51,6 +51,9 @@ public class Character : MonoBehaviour
     protected int hashIsAttacking = Animator.StringToHash("IsAttacking");
     protected int hashDeathTrigger = Animator.StringToHash("DeathTrigger");
 
+    //UI
+    [SerializeField] protected SkillButton skillButton;
+
     [SerializeField] protected Stats stats;
     public Character target;
 
@@ -115,10 +118,20 @@ public class Character : MonoBehaviour
             maxattackSpeed = value;
         }
     }
-    ///////////////////////////////////
 
-    //Current Stats Property
-    [Header("Current Stats")]
+	private float maxCoolTime;
+	public float MaxCoolTime
+	{
+		get => maxCoolTime;
+		set
+		{
+			maxCoolTime = value;
+		}
+	}
+	///////////////////////////////////
+
+	//Current Stats Property
+	[Header("Current Stats")]
     [SerializeField] private float hp;
     public float Hp
     {
@@ -188,9 +201,20 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void Awake()
+	[SerializeField] private float coolTime;
+	public float CoolTime
+	{
+		get => coolTime;
+		set
+		{
+			coolTime += value;
+		}
+	}
+
+	private void Awake()
     {
 		sprite = GetComponent<SpriteRenderer>();
+		InitStats();
 	}
 
     // Start is called before the first frame update
@@ -200,7 +224,7 @@ public class Character : MonoBehaviour
         collider = GetComponent<Collider>();
         rigidbody = GetComponent<Rigidbody2D>();
 
-        InitStats();
+        //InitStats();
 
         state = State.Idle;
         timer = 0f;//AttackSpeed;
@@ -303,6 +327,9 @@ public class Character : MonoBehaviour
 
         MaxattackSpeed = stats.attackSpeed;
         AttackSpeed = MaxattackSpeed;
+
+        MaxCoolTime = stats.coolTime;
+        CoolTime = MaxCoolTime;
 
         position = stats.position;
     }
@@ -412,10 +439,8 @@ public class Character : MonoBehaviour
     }
 
     public RuntimeAnimatorController GetAnimator()
-    {
-        //Debug.Log(animator);
+    {        
         return stats.animatorController; 
-
 	}
 
     public virtual void InitRotation() { }

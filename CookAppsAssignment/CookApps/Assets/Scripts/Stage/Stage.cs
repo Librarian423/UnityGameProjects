@@ -26,6 +26,11 @@ public class Stage : MonoBehaviour
         stageTextName.text = StageName;
     }
 
+    public void OnClick(Stage stage)
+    {
+        UiManager.instance.SetStage(stage);
+    }
+
     public string GetStageName()
     {
         return StageName;

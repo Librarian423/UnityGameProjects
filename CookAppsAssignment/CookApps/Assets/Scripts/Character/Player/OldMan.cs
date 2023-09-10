@@ -19,7 +19,7 @@ public class OldMan : Character
 
     public override void ActiveSkill()
     {
-        if (target.transform.position.x > transform.position.x) 
+        if (target.transform.position.x > transform.position.x)
         {
             transform.position = target.transform.position + new Vector3(-1, 0, 0);
         }
@@ -27,5 +27,6 @@ public class OldMan : Character
         {
             transform.position = target.transform.position + new Vector3(1, 0, 0);
         }
+        target.GetDamage(Atk * 2);
     }
 }

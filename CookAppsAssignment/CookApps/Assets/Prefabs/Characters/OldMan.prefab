@@ -198,6 +198,8 @@ MonoBehaviour:
   side: 0
   state: 0
   position: 0
+  sprite: {fileID: 0}
+  skillButton: {fileID: 2775582861529445789, guid: cc83a55ec79ce12478166bc98015486c, type: 3}
   stats: {fileID: 11400000, guid: 22b73f315a6864c08ba1572e52cee84f, type: 2}
   target: {fileID: 0}
   hp: 0

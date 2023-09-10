@@ -26,6 +26,10 @@ public class UiManager : MonoBehaviour
 
 	[SerializeField] private CharacterIcon IconPrefab;
 
+	[Header("BattleUI")]
+	[SerializeField] private GameObject skillButtons;
+	[SerializeField] private SkillButton skillButton;
+
 	private static UiManager m_instance;
 	public static UiManager instance
 	{
@@ -50,11 +54,37 @@ public class UiManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
+		DontDestroyOnLoad(gameObject);
 	}
-	// Start is called before the first frame update
-	void Start()
+	
+	public void SetPlayerLine1(Line line)
 	{
+		playerLine1 = line;
+	}
 
+	public void SetPlayerLine2(Line line)
+	{
+		playerLine2 = line;
+	}
+
+	public void SetPlayerLine3(Line line)
+	{
+		playerLine3 = line;
+	}
+
+	public void SetEnemyLine1(GameObject line)
+	{
+		enemyLine1 = line;
+	}
+
+	public void SetEnemyLine2(GameObject line)
+	{
+		enemyLine2 = line;
+	}
+
+	public void SetEnemyLine3(GameObject line)
+	{
+		enemyLine3 = line;
 	}
 
 	public void BattleStart()
@@ -75,10 +105,31 @@ public class UiManager : MonoBehaviour
 		SceneManager.LoadScene(2);
 	}
 
+	public void SetSkillButtons(GameObject gameObject)
+	{
+		skillButtons = gameObject;
+	}
+
+	public void SetSkillButtonWidth(int count)
+	{
+		skillButtons.GetComponent<SkillButtonSetter>().SetSize(count);
+	}
+
+	public void AddSkillButton(Character character)
+	{
+		var button = Instantiate(skillButton, skillButtons.transform);
+		button.SetButton(character);
+	}
+
 	public void SetStage(Stage stage)
 	{
 		currentStage = stage;
 		SetBattleInfoStageName(currentStage.GetStageName());
+	}
+
+	public void SetStageNameText(TextMeshProUGUI text)
+	{
+		stageName = text;
 	}
 
 	public void SetBattleInfoStageName(string name)

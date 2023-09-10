@@ -19,8 +19,6 @@ public class Wolf : Character
 
     public override void InitRotation()
     {
-        Debug.Log("wolf "+ sprite);
-
 		if (side == Side.Enemy)
 		{
 			sprite.flipX = true;
