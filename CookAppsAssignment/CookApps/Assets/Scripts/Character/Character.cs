@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 
@@ -438,10 +437,10 @@ public class Character : MonoBehaviour
         return stats.profile;
     }
 
-    public RuntimeAnimatorController GetAnimator()
-    {        
-        return stats.animatorController; 
-	}
+ //   public RuntimeAnimatorController GetAnimator()
+ //   {        
+ //       return stats.animatorController; 
+	//}
 
     public virtual void InitRotation() { }
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Stats", menuName = "Scriptable/Stats")]
@@ -14,7 +13,7 @@ public class Stats : ScriptableObject
     }
 
     public Sprite profile;
-    public AnimatorController animatorController;
+    //public AnimatorController animatorController;
     public Position position;
     public float hp;
     public float atk;
