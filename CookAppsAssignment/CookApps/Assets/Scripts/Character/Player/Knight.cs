@@ -49,6 +49,8 @@ public class Knight : Character
 
 	public void StartDash()
 	{
+		var effect = Instantiate(skillEffect);
+		effect.transform.position = transform.position;
 		if (target.transform.position.x > transform.position.x)
 		{
 			transform.position = target.transform.position + new Vector3(-1, 0, 0);
@@ -58,5 +60,6 @@ public class Knight : Character
 			transform.position = target.transform.position + new Vector3(1, 0, 0);
 		}
 		target.GetDamage(Atk * 2);
+
 	}
 }

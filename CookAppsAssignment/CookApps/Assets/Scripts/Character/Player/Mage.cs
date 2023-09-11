@@ -18,6 +18,8 @@ public class Mage : Character
 
 	public override void ActiveSkill()
 	{
-		target.GetDamage(Atk * 5);
+        var effect = Instantiate(skillEffect);
+		effect.transform.position = target.transform.position;
+        target.GetDamage(Atk * 5);
 	}
 }

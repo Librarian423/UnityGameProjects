@@ -36,6 +36,10 @@ public class SkillButton : MonoBehaviour
 			coolText.enabled = false;
 			button.interactable = true;
 		}
+		if (character.gameObject.activeSelf == false)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 
     public void SetButton(Character character)

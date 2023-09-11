@@ -17,7 +17,7 @@ MonoBehaviour:
   hp: 100
   atk: 10
   def: 0
-  attackRange: 10
-  moveSpeed: 1
+  attackRange: 9
+  moveSpeed: 2
   attackSpeed: 1
   coolTime: 3

@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
     private float negative = 1f;
 
     private bool isWon = false;
+    private bool isClear = false;
 
     private static BattleManager m_instance;
     public static BattleManager instance
@@ -52,11 +53,27 @@ public class BattleManager : MonoBehaviour
 		DontDestroyOnLoad(gameObject);
 	}
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {        
+        isClear = false;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Update()
     {
         //Game Clear
-        if (SceneManager.GetActiveScene().buildIndex == 2 && IsListEmpty()) 
+        if (SceneManager.GetActiveScene().buildIndex == 2 && IsListEmpty() && !isClear) 
         {
+            isClear = true;
 			UiManager.instance.SetResultCanvas(isWon);
 		}
     }

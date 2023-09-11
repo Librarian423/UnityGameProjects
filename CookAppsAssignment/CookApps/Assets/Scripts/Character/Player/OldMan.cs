@@ -19,6 +19,8 @@ public class OldMan : Character
 
     public override void ActiveSkill()
     {
+        var effect = Instantiate(skillEffect);
+        effect.transform.position = transform.position;
         if (target.transform.position.x > transform.position.x)
         {
             transform.position = target.transform.position + new Vector3(-1, 0, 0);

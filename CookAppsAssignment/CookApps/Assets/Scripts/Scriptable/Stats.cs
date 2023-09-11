@@ -11,7 +11,6 @@ public class Stats : ScriptableObject
         Middle,
         Back,
     }
-
     public Sprite profile;
     //public AnimatorController animatorController;
     public Position position;

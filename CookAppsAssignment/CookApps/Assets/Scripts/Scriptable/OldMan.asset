@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: OldMan
   m_EditorClassIdentifier: 
   profile: {fileID: -185495680, guid: a82243c0d454d466587e612224f304c3, type: 3}
-  animatorController: {fileID: 9100000, guid: ce18ef998112741aa8be9bca7768ab8b, type: 2}
   position: 0
   hp: 100
   atk: 10
   def: 0
   attackRange: 1
-  moveSpeed: 1
+  moveSpeed: 2
   attackSpeed: 1
   coolTime: 5

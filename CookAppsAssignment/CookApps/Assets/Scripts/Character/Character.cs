@@ -32,7 +32,7 @@ public class Character : MonoBehaviour
     [SerializeField] private Stats.Position position;
 
     //timer
-    private float timer;
+    protected float timer;
     private float waitTime = 3f;
 
     //bool
@@ -55,6 +55,10 @@ public class Character : MonoBehaviour
 
     [SerializeField] protected Stats stats;
     public Character target;
+
+    [Header("Skill Effect")]
+    [SerializeField] protected GameObject skillEffect;
+
 
     //Max Stats Property
     [Header("Max Stats")]
@@ -418,7 +422,11 @@ public class Character : MonoBehaviour
 
     public void SetDeath()
     {
-        state = State.Die;        
+        state = State.Die;
+        if (side == Side.Player)
+        {
+
+        }
     }
 
     public void SetUnenable()
