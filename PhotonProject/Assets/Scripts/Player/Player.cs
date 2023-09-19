@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
         Moving,
         Rolling,
         Attacking,
+        Stun,
     }
 
     public PlayerState state;
@@ -28,8 +29,12 @@ public class Player : MonoBehaviour
     public bool IsMovable = true;
     public bool IsRollable = true;
 
+    //timer
+    private float timer = 0f;
+    private float stunTime;
 
     [Header("Stats")]
+    [SerializeField] private float hp = 100f;
     public float moveSpeed = 10f;
     private float originMoveSpeed;
     public float rollingDistance = 10f;
@@ -57,6 +62,9 @@ public class Player : MonoBehaviour
                 //moveSpeed = 0f;
                 break;
             case PlayerState.Attacking:
+                break;
+            case PlayerState.Stun:              
+                Stun();
                 break;
         }
     }
@@ -126,7 +134,29 @@ public class Player : MonoBehaviour
         animator.SetBool(hashIsNormalAttack, false);
         PlayerIdle();
     }
-    ///////////////////////////
-    
 
+    public void GetDamage(float damage)
+    {
+        hp -= damage;
+    }
+    ///////////////////////////
+    ///
+
+    //Stun
+    public void PlayerStun(float time)
+    {
+        state = PlayerState.Stun;
+        IsMovable = false;
+        timer = 0f;
+        stunTime = time;
+    }
+    
+    private void Stun()
+    {
+        timer += Time.deltaTime;
+        if (timer > stunTime)
+        {
+            PlayerIdle();
+        }
+    }
 }

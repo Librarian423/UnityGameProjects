@@ -69,6 +69,4 @@ public class Warrior : Ability
     {
         Debug.Log("special");
     }
-
-    
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class WarriorNormal : MonoBehaviour
 {
-    public int count = 0;
+    [SerializeField] private float stunTime = 0.5f;
+    [SerializeField] private float damage = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +23,16 @@ public class WarriorNormal : MonoBehaviour
     {
         if (other.gameObject.CompareTag("HitBox"))
         {
+            other.GetComponentInParent<Player>().GetDamage(damage);
             Debug.Log(other.name);
-            count++;
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        
-        
+        if (other.gameObject.CompareTag("HitBox"))
+        {
+            other.GetComponentInParent<Player>().PlayerStun(stunTime);
+        }
     }
 }
