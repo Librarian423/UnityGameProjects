@@ -126,7 +126,6 @@ public class Player : MonoBehaviour
 
     public void NormalAttack()
     {
-
         animator.SetBool(hashIsNormalAttack, true);
     }
 
@@ -165,5 +164,13 @@ public class Player : MonoBehaviour
         {
             PlayerIdle();
         }
+    }
+
+    /////////////////////
+    ///
+    public LayerMask GetLayer()
+    {
+        //Debug.Log(hitCollider.gameObject.layer);
+        return hitCollider.gameObject.layer;
     }
 }

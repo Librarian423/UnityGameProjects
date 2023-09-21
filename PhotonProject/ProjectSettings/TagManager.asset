@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - HitBox
+  - 1P
   layers:
   - Default
   - TransparentFX
@@ -12,9 +13,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - 1P
+  - 2P
+  - 3P
   - 
   - 
   - 
