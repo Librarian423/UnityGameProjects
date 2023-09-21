@@ -16,4 +16,4 @@ MonoBehaviour:
   atk: 10
   def: 0
   attackSpeed: 1
-  coolTime: 2
+  coolTime: 1

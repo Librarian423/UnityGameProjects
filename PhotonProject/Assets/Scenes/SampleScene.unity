@@ -8175,6 +8175,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4562075604489022, guid: 1b8fbee291cdc1046a281cb2b3b51bf7, type: 3}
   m_PrefabInstance: {fileID: 262642594}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &336996369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2761662454611682621, guid: 84a0f14f370154fc9ba3a125501fa874, type: 3}
+  m_PrefabInstance: {fileID: 928146672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &336996377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336996369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fedf7fea59f24e48b02879bde1e16b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &340544250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4562075604489022, guid: 1b8fbee291cdc1046a281cb2b3b51bf7, type: 3}
@@ -21092,7 +21109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2762688530590281487, guid: 84a0f14f370154fc9ba3a125501fa874, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2763188486359826213, guid: 84a0f14f370154fc9ba3a125501fa874, type: 3}
       propertyPath: m_RootOrder
@@ -41238,7 +41255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846dcec1053db44509eb2e859e523fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6382871136331398066, guid: 62d1ac220cb1a4e198fd3ce67f7a2b9d, type: 3}
+  player: {fileID: 336996369}
   round: 0
 --- !u!4 &1831818303
 Transform:
@@ -43362,13 +43379,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 276381337428531818, guid: 62d1ac220cb1a4e198fd3ce67f7a2b9d, type: 3}
-      propertyPath: stunTime
-      value: 0.5
+    - target: {fileID: -6934880014179640185, guid: 62d1ac220cb1a4e198fd3ce67f7a2b9d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2971290172292237932, guid: 62d1ac220cb1a4e198fd3ce67f7a2b9d, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6043641410296488200, guid: 62d1ac220cb1a4e198fd3ce67f7a2b9d, type: 3}
       propertyPath: m_RootOrder

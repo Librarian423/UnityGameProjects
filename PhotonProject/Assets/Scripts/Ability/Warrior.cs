@@ -6,6 +6,7 @@ public class Warrior : Ability
 {
     //Colliders
     [SerializeField] private Collider dashCollider;
+    [SerializeField] private Collider spinCollider;
 
     //Components
     private new Rigidbody rigidbody;
@@ -15,9 +16,11 @@ public class Warrior : Ability
     //variables
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashTime = 1.5f;
+    [SerializeField] private float spinTime = 3f;
 
     //bools
     private bool isDash = false;
+    private bool isSpin = false;
 
     //timer
     private float timer = 0f;
@@ -30,6 +33,7 @@ public class Warrior : Ability
         player = GetComponent<Player>();
 
         dashCollider.enabled = false;
+        spinCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -37,19 +41,41 @@ public class Warrior : Ability
     {
         if (isDash)
         {
-            if (timer >= dashTime)
-            {
-                isDash = false;
-                player.IsMovable = true;
-                player.IsRollable = true;
-                player.EndAttack();
-
-                dashCollider.enabled = false;
-            }
-            timer += Time.deltaTime;
-            rigidbody.velocity = transform.forward * dashSpeed;
+            Dash();
+        }
+        if (isSpin)
+        {
+            Spin();
         }
         
+    }
+
+    private void Dash()
+    {
+        if (timer >= dashTime)
+        {
+            isDash = false;
+            player.IsMovable = true;
+            player.IsRollable = true;
+            player.EndAttack();
+
+            dashCollider.enabled = false;
+        }
+        timer += Time.deltaTime;
+        rigidbody.velocity = transform.forward * dashSpeed;
+    }
+
+    private void Spin()
+    {
+        if (timer >= spinTime)
+        {
+            isSpin = false;
+            player.IsRollable = true;
+            player.EndAttack();
+
+            spinCollider.enabled = false;   
+        }
+        timer += Time.deltaTime;
     }
 
     public override void NormalAbility()
@@ -68,5 +94,11 @@ public class Warrior : Ability
     public override void SpecialAbility()
     {
         Debug.Log("special");
+        spinCollider.enabled = true;
+
+        player.IsRollable = false;
+        player.SpecialAttack();
+        isSpin = true;
+        timer = 0f;
     }
 }

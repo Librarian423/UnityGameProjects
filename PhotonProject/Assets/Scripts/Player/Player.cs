@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private int hashIsMoving = Animator.StringToHash("IsMoving");
     private int hashIsNormalAttack = Animator.StringToHash("IsNormalAttack");
+    private int hashIsSpecialAttack = Animator.StringToHash("IsSpecialAttack");
     private int hashRollingTrigger = Animator.StringToHash("RollingTrigger");
 
     //Colliders
@@ -129,9 +130,15 @@ public class Player : MonoBehaviour
         animator.SetBool(hashIsNormalAttack, true);
     }
 
+    public void SpecialAttack()
+    {
+        animator.SetBool(hashIsSpecialAttack, true);
+    }
+
     public void EndAttack()
     {
         animator.SetBool(hashIsNormalAttack, false);
+        animator.SetBool(hashIsSpecialAttack, false);
         PlayerIdle();
     }
 
