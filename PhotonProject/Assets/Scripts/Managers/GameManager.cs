@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Instantiate(player, Vector3.zero, Quaternion.identity);
+        //Instantiate(player, Vector3.zero, Quaternion.identity);
     }
 
     // Update is called once per frame

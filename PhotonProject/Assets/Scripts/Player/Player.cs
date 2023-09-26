@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviourPunCallbacks
 {
     public enum PlayerState
     {
@@ -173,4 +174,6 @@ public class Player : MonoBehaviour
         //Debug.Log(hitCollider.gameObject.layer);
         return hitCollider.gameObject.layer;
     }
+
+    
 }
