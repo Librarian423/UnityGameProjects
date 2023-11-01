@@ -13,6 +13,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject inputPanel;
     public GameObject respawnPanel;
 
+    public GameObject warrior;
+
     private static NetworkManager m_instance;
     public static NetworkManager instance
     {
@@ -51,6 +53,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         inputPanel.SetActive(false);
+        Spawn();
     }
 
     private void Update()
@@ -59,6 +62,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Disconnect();
         }
+    }
+
+    public void Spawn()
+    {
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        respawnPanel.SetActive(false);
     }
 
     public override void OnDisconnected(DisconnectCause cause)

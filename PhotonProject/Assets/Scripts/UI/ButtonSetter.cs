@@ -8,4 +8,9 @@ public class ButtonSetter : MonoBehaviour
     {
         NetworkManager.instance.Connect();
     }
+
+    public void Spawn()
+    {
+        NetworkManager.instance.Spawn();
+    }
 }

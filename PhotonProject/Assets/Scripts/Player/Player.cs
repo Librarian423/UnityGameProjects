@@ -16,6 +16,8 @@ public class Player : MonoBehaviourPunCallbacks
 
     public PlayerState state;
 
+    public PhotonView photonView;
+
     //Animation
     private Animator animator;
     private int hashIsMoving = Animator.StringToHash("IsMoving");
@@ -51,24 +53,27 @@ public class Player : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        switch (state)
+        if (photonView.IsMine)
         {
-            case PlayerState.Idle:
-                IsMovable = true;
-                break;
-            case PlayerState.Moving:
+			switch (state)
+			{
+				case PlayerState.Idle:
+					IsMovable = true;
+					break;
+				case PlayerState.Moving:
 
-                break;
-            case PlayerState.Rolling:
-                IsMovable = false;
-                //moveSpeed = 0f;
-                break;
-            case PlayerState.Attacking:
-                break;
-            case PlayerState.Stun:              
-                Stun();
-                break;
-        }
+					break;
+				case PlayerState.Rolling:
+					IsMovable = false;
+					//moveSpeed = 0f;
+					break;
+				case PlayerState.Attacking:
+					break;
+				case PlayerState.Stun:
+					Stun();
+					break;
+			}
+		}
     }
 
     //Moving

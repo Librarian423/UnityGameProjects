@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HitBox
   - 1P
+  - Bullet
   layers:
   - Default
   - TransparentFX

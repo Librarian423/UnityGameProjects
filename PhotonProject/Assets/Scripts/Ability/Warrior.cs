@@ -88,12 +88,10 @@ public class Warrior : Ability
         
         isDash = true;
         timer = 0f;
-        Debug.Log("normal");
     }
 
     public override void SpecialAbility()
     {
-        Debug.Log("special");
         spinCollider.enabled = true;
 
         player.IsRollable = false;

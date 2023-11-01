@@ -1999,7 +1999,7 @@ GameObject:
   - component: {fileID: 7820711266125229247}
   - component: {fileID: 436708327484710156}
   m_Layer: 0
-  m_Name: Warrior
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2103,6 +2103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  photonView: {fileID: 7907208082074508929}
   mainCollider: {fileID: 2971290172292237929}
   hitCollider: {fileID: 4481461724522145144}
   IsMovable: 1

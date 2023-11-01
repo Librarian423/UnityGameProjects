@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9005,8 +9005,8 @@ Transform:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 744009439}
-  - {fileID: 462652506}
   - {fileID: 745857244}
+  - {fileID: 462652506}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10584,7 +10584,7 @@ GameObject:
   - component: {fileID: 462652506}
   - component: {fileID: 462652505}
   m_Layer: 0
-  m_Name: CM vcam1
+  m_Name: CMCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10642,7 +10642,7 @@ Transform:
   m_Children:
   - {fileID: 1178329342}
   m_Father: {fileID: 394428536}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 43.5, y: 0, z: 0}
 --- !u!4 &464647330 stripped
 Transform:
@@ -17007,7 +17007,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 394428536}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &749859581 stripped
 Transform:
@@ -19466,6 +19466,7 @@ MonoBehaviour:
   nameInputField: {fileID: 1485197657}
   inputPanel: {fileID: 1750580132}
   respawnPanel: {fileID: 616530003}
+  warrior: {fileID: 6382871136331398066, guid: 62d1ac220cb1a4e198fd3ce67f7a2b9d, type: 3}
 --- !u!4 &837310965
 Transform:
   m_ObjectHideFlags: 0
@@ -21790,8 +21791,9 @@ GameObject:
   - component: {fileID: 946458147}
   - component: {fileID: 946458146}
   - component: {fileID: 946458145}
+  - component: {fileID: 946458148}
   m_Layer: 5
-  m_Name: ConnectButton
+  m_Name: RespawnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21861,7 +21863,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 946458146}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 946458148}
+        m_TargetAssemblyTypeName: ButtonSetter, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &946458146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21900,6 +21914,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946458143}
   m_CullTransparentMesh: 1
+--- !u!114 &946458148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946458143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41f58cbf3ddc43f6b184943ba95c5c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &948642056
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,24 +10,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private new Rigidbody rigidbody;
     private Player player;
     private Ability ability;
-    private PhotonView photonView;
+    public PhotonView photonView;
 
     //Inputs
     private float horizontalInput;
     private float vertivalInput;
+    private Vector3 curPos;
 
     //Timer
     private float timer = 0f;
-
-    private void Awake()
-    {
-        if (photonView.IsMine)
-        {
-            var CM = GameObject.Find("CMCamera").GetComponent<CinemachineVirtualCamera>();
-            CM.Follow = transform;
-            CM.LookAt = transform;
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +70,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
             }
         }
-    }
+        else if ((transform.position - curPos).sqrMagnitude >= 100)
+        {
+            transform.position = curPos;
+        }
+        else 
+        {
+            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10); 
+        }
+	}
 
     private void Rolling()
     {       
@@ -94,7 +93,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        
-    }
+		if (stream.IsWriting)
+		{
+			stream.SendNext(transform.position);
+			//stream.SendNext(HealthImage.fillAmount);
+		}
+        else
+        {
+            curPos = (Vector3)stream.ReceiveNext();
+        }
+		
+	}
 }
 
