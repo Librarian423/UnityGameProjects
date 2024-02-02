@@ -53,6 +53,10 @@ public class Player : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         if (photonView.IsMine)
         {
 			switch (state)

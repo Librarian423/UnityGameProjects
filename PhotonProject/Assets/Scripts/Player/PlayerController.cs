@@ -27,9 +27,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         player = GetComponent<Player>();
         ability = GetComponent<Ability>();
     }
-  
+    
+
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
 		if (!photonView.IsMine)
         {
