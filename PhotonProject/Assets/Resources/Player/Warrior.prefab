@@ -1998,6 +1998,7 @@ GameObject:
   - component: {fileID: 7907208082074508929}
   - component: {fileID: 7820711266125229247}
   - component: {fileID: 436708327484710156}
+  - component: {fileID: 2147169104924572309}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Player
@@ -2103,6 +2104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+  photonView: {fileID: 0}
   mainCollider: {fileID: 2971290172292237929}
   hitCollider: {fileID: 4481461724522145144}
   IsMovable: 1
@@ -2162,6 +2164,7 @@ MonoBehaviour:
   - {fileID: 2971290172292237932}
   - {fileID: 7820711266125229247}
   - {fileID: 436708327484710156}
+  - {fileID: 2147169104924572309}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2178,7 +2181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
+  m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &436708327484710156
@@ -2211,6 +2214,22 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &2147169104924572309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6382871136331398066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 0
 --- !u!1 &6403544075006231419
 GameObject:
   m_ObjectHideFlags: 0
