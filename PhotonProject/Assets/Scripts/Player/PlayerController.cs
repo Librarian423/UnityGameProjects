@@ -27,26 +27,28 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         player = GetComponent<Player>();
         ability = GetComponent<Ability>();
     }
-
+  
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         timer += Time.deltaTime;
-        if (!photonView.IsMine)
-        {
-            return;
-        }
+
 		horizontalInput = Input.GetAxisRaw("Horizontal");
 		vertivalInput = Input.GetAxisRaw("Vertical");
 
+		if (!photonView.IsMine)
+        {
+            return;
+        }
+		
 		//Inputs
 		Vector3 inputDir = new Vector3(horizontalInput, 0, vertivalInput).normalized;
 
 		if (player.IsMovable)
 		{
 			//Movement
-			rigidbody.velocity = inputDir * player.moveSpeed;
 			transform.LookAt(transform.position + inputDir);
+			rigidbody.velocity = inputDir * player.moveSpeed;
 
 			//Normal Attack
 			if (Input.GetKeyDown(KeyCode.E))
