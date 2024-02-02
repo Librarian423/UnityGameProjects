@@ -76,8 +76,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         else 
         {
-            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10); 
-        }
+            //transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+			transform.LookAt(transform.position + curPos);
+		}
 	}
 
     private void Rolling()
