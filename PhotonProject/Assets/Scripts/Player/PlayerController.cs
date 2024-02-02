@@ -32,53 +32,54 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     void Update()
     {
         timer += Time.deltaTime;
-        if (photonView.IsMine)
+        if (!photonView.IsMine)
         {
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            vertivalInput = Input.GetAxisRaw("Vertical");
-
-            //Inputs
-            Vector3 inputDir = new Vector3(horizontalInput, 0, vertivalInput).normalized;
-
-            if (player.IsMovable)
-            {
-                //Movement
-                rigidbody.velocity = inputDir * player.moveSpeed;
-                transform.LookAt(transform.position + inputDir);
-
-                //Normal Attack
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    player.Attack();
-                    ability.NormalAbility();
-                }
-
-                //Special Attack
-                if (Input.GetKeyDown(KeyCode.Q))
-                {
-                    player.Attack();
-                    ability.SpecialAbility();
-                }
-            }
-            //Movig Animation
-            player.PlayerMoving(inputDir != Vector3.zero);
-
-            //Rolling
-            if (player.IsRollable && Input.GetKeyDown(KeyCode.Space) && timer >= ability.stats.coolTime)
-            {
-                player.PlayerRolling();
-
-            }
+            return;
         }
-        else if ((transform.position - curPos).sqrMagnitude >= 100)
+		horizontalInput = Input.GetAxisRaw("Horizontal");
+		vertivalInput = Input.GetAxisRaw("Vertical");
+
+		//Inputs
+		Vector3 inputDir = new Vector3(horizontalInput, 0, vertivalInput).normalized;
+
+		if (player.IsMovable)
+		{
+			//Movement
+			rigidbody.velocity = inputDir * player.moveSpeed;
+			transform.LookAt(transform.position + inputDir);
+
+			//Normal Attack
+			if (Input.GetKeyDown(KeyCode.E))
+			{
+				player.Attack();
+				ability.NormalAbility();
+			}
+
+			//Special Attack
+			if (Input.GetKeyDown(KeyCode.Q))
+			{
+				player.Attack();
+				ability.SpecialAbility();
+			}
+		}
+		//Movig Animation
+		player.PlayerMoving(inputDir != Vector3.zero);
+
+		//Rolling
+		if (player.IsRollable && Input.GetKeyDown(KeyCode.Space) && timer >= ability.stats.coolTime)
+		{
+			player.PlayerRolling();
+
+		}
+		/*else if ((transform.position - curPos).sqrMagnitude >= 100)
         {
             transform.position = curPos;
         }
         else 
         {
-            //transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
 			transform.LookAt(transform.position + curPos);
-		}
+		}*/
 	}
 
     private void Rolling()
