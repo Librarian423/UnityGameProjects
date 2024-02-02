@@ -66,7 +66,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void Spawn()
     {
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("Warrior", Vector3.zero, Quaternion.identity);
         respawnPanel.SetActive(false);
     }
 
