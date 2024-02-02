@@ -31,16 +31,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     // Update is called once per frame
     private void FixedUpdate()
     {
-        timer += Time.deltaTime;
-
-		horizontalInput = Input.GetAxisRaw("Horizontal");
-		vertivalInput = Input.GetAxisRaw("Vertical");
-
 		if (!photonView.IsMine)
         {
             return;
         }
-		
+
+		timer += Time.deltaTime;
+
+		horizontalInput = Input.GetAxisRaw("Horizontal");
+		vertivalInput = Input.GetAxisRaw("Vertical");
+
 		//Inputs
 		Vector3 inputDir = new Vector3(horizontalInput, 0, vertivalInput).normalized;
 
